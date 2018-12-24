@@ -3,23 +3,22 @@ import tifffile
 import numpy as np
 import keras
 from keras.models import load_model
+from PIL import Image
 np.random.seed(42)
 
 # Save generated images as 32bit grayscale tiff
 def save_generated_images(generated_images):
-
+   
     for i in range(len(generated_images)):
         image = generated_images[i, :, :, :]
         image += 1
         image *= 127.5
-
-        """
-        save method
-        """
-
-        #name = './generated/{}.tif'.format(str(i)) 
-        #tifffile.imsave(name, image)
-         
+        #image.astype(np.unit8)
+        im = Image.fromarray(np.uint8(image))
+        name = './generated/{}.jpg'.format(str(i))
+        im.save(name)
+    """
+    print(generated_images)
 
 # Training
 def test(model_path, generate_size):
@@ -35,7 +34,7 @@ def test(model_path, generate_size):
 
   
 def main():
-    model_path = './models/generator_epoch*.hdf5'
+    model_path = './models/generator_epoch200.hdf5'
     generate_size = 64
     test(model_path, generate_size)
 
