@@ -17,11 +17,11 @@ def load_dataset(dataset_path, batch_size):
     data_generator = gen.flow_from_directory(
         dataset_path,
         target_size=(64, 64),
-        color_mode='grayscale',
+        color_mode='rgb',
         batch_size=batch_size,
-        shuffle=False,
+        shuffle=True,
         seed=None,
-        class_mode=None,
+        class_mode=None
     )
 
     return data_generator
@@ -181,6 +181,7 @@ def train(dataset_path, batch_size, epochs):
 
   
 def main():
+    # 200, 64
     dataset_path = './data'
     batch_size = 64
     epochs = 200
